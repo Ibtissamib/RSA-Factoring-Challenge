@@ -18,7 +18,7 @@ def main():
                         p = i
                         q = input_data // p
                         break
-                print(input_data, '=', p, '*', q)
+                print(f"{input_data}={p}*{q}")
     except FileNotFoundError:
         print("File not found:", input_file)
         sys.exit(1)
