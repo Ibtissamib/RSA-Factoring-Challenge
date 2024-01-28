@@ -1,0 +1,39 @@
+#!/usr/bin/python3
+import sys
+import math
+def is_prime(n):
+    if n <= 1:
+        return False
+    if n <= 3:
+        return True
+    if n % 2 == 0 or n % 3 == 0:
+        return False
+    sqrt_n = int(math.sqrt(n))
+    for i in range(5, sqrt_n + 1, 6):
+        if n % i == 0 or n % (i + 2) == 0:
+            return False
+    return True
+def main():
+    if len(sys.argv) != 2:
+        print("Usage: ./factors input_file")
+        sys.exit(1)
+    input_file = sys.argv[1]
+    try:
+        with open(input_file, 'r') as file:
+            input_data = int(file.read().strip())
+            root_sqrt = int(math.sqrt(input_data))
+            p = input_data
+            q = 1
+            for i in range(2, root_sqrt + 1):
+                if is_prime(i):
+                    if (input_data % i) == 0:
+                        if is_prime(input_data // i):
+                            p = i
+                            q = input_data // p
+                            break
+            print(f"{input_data}={p}*{q}")
+    except FileNotFoundError:
+        print("File not found:", input_file)
+        sys.exit(1)
+if __name__ == "__main__":
+    main()
